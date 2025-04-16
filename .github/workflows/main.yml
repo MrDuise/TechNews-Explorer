@@ -41,13 +41,13 @@ jobs:
           dotnet-version: '8.0' # Use the appropriate version of .NET for your project
 
       - name: Restore dependencies
-        working-directory: ./Backend Challenge
+        working-directory: ./Backend Challenge/Backend Challenge
         run: dotnet restore
 
       - name: Build the project
-        working-directory: ./Backend Challenge
+        working-directory: ./Backend Challenge/Backend Challenge
         run: dotnet build --configuration Release
 
       - name: Run C# tests
-        working-directory: ./Backend Challenge
+        working-directory: ./Backend Challenge/Backend Challenge
         run: dotnet test --configuration Release --no-build --verbosity normal
