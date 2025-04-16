@@ -1,0 +1,54 @@
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    /* Full viewport height */
+    width: 100%;
+}
+
+.disabled-link {
+    pointer-events: none;
+    color: gray;
+    text-decoration: none;
+  }
+  
+
+/* Layout for articles */
+
+.articles-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    /* Center the cards */
+    gap: 20px;
+    /* Space between cards */
+    padding: 20px;
+}
+
+
+
+/* Style for individual cards */
+
+.article-card {
+    width: 75%;
+    /* Set a fixed width */
+    max-width: 100%;
+    /* Prevent overflow */
+    display: flex;
+    flex-direction: column;
+
+}
+
+.paginator-container {
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: white;
+    /* Ensures it doesn't blend with content */
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    /* Optional shadow for separation */
+}
