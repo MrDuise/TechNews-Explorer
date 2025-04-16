@@ -7,11 +7,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddMemoryCache();
-builder.Services.AddSingleton<IRestClient>(sp =>
+builder.Services.AddScoped<IRestClient>(provider =>
 {
     var client = new RestClient("https://hacker-news.firebaseio.com/");
     return client;
 });
+
+
 
 builder.Services.AddScoped<IStoryService, StoryService>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

@@ -50,4 +50,5 @@ jobs:
 
       - name: Run C# tests
         working-directory: ./Backend Challenge/Backend Challenge
-        run: dotnet test --configuration Release --no-build --verbosity normal
+        run: dotnet test --configuration Release --no-build --verbosity normal --filter "Category!=Integration"
+

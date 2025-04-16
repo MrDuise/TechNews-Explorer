@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  backend:
+    image: backendchallenge:dev    # Reference your local image
+    build:
+      context: .                    # Build context (use this if you want to build the image using the Dockerfile)
+    ports:
+      - "5000:80"                   # Map port 5000 on your machine to port 80 inside the container
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production  # Set the environment variable for production mode
+    networks:
+      - backend-net
+    restart: always  # Optional: Ensures your container restarts if it fails or after system restart
+
+networks:
+  backend-net:
+    driver: bridge
+
