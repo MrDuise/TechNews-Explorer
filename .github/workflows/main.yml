@@ -1,0 +1,53 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - '**' 
+
+jobs:
+  # Job to run Angular tests
+  # angular-tests:
+  #   runs-on: ubuntu-latest
+
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v2
+
+  #     - name: Set up Node.js
+  #       uses: actions/setup-node@v3
+  #       with:
+  #         node-version: '22.14'
+
+  #     - name: Install dependencies
+  #       working-directory: ./Frontend  # Navigate to the frontend directory
+  #       run: npm install
+
+  #     - name: Run Angular tests
+  #       working-directory: ./Frontend  # Navigate to the frontend directory
+  #       run: npm run test -- --watch=false --browsers=ChromeHeadless
+
+  # Job to run C# tests
+  dotnet-tests:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up .NET SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0' # Use the appropriate version of .NET for your project
+
+      - name: Restore dependencies
+        working-directory: ./Backend Challenge
+        run: dotnet restore
+
+      - name: Build the project
+        working-directory: ./Backend Challenge
+        run: dotnet build --configuration Release
+
+      - name: Run C# tests
+        working-directory: ./Backend Challenge
+        run: dotnet test --configuration Release --no-build --verbosity normal
