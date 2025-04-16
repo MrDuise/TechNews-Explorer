@@ -11,12 +11,13 @@ namespace Backend_Challenge.Services
         private readonly IMemoryCache cache;
         private readonly IRestClient restClient;
         private readonly ILogger<StoryService> logger;
+        const string cacheKey = "new-story-ids";
 
-        public StoryService(ILogger<StoryService> logger, IMemoryCache memoryCache, IRestClient? restClient)
+        public StoryService(ILogger<StoryService> logger, IMemoryCache memoryCache, IRestClient restClient)
         {
             this.logger = logger;
             this.cache = memoryCache;
-            this.restClient = restClient ?? new RestClient("https://hacker-news.firebaseio.com/");
+            this.restClient = restClient;
         }
 
         public async Task<List<StoryItem>> GetStoryItems(int amountPerPage, int page)
@@ -60,14 +61,13 @@ namespace Backend_Challenge.Services
         //Fetchs the storyid list, caches it, returns the list
         private async Task<List<long>> GetNewStoryIDs()
         {
-            const string cacheKey = "new-story-ids";
+            //const string cacheKey = "new-story-ids";
 
             if (cache.TryGetValue(cacheKey, out List<long> cachedIds))
             {
                 logger.LogInformation("Pulling ids from cache");
                 return cachedIds;
             }
-            var url = "https://hacker-news.firebaseio.com/v0/newstories.json";
             try
             {
                 var request = new RestRequest("v0/newstories.json", Method.Get);

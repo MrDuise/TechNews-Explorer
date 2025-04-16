@@ -23,8 +23,10 @@
       "launchBrowser": true,
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/swagger",
       "environmentVariables": {
-        "ASPNETCORE_HTTP_PORTS": "8080"
+        "ASPNETCORE_HTTP_PORTS": "8080",
+        "ASPNETCORE_ENVIRONMENT": "Production"
       },
+      "applicationUrl": "http://localhost:5000",
       "publishAllPorts": true,
       "useSSL": false
     }
