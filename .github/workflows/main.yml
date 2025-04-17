@@ -102,7 +102,10 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: .net-app
-      
+
+      - name: List files after artifact download
+        run: dir /s
+
       - name: Login to Azure
         uses: azure/login@v2
         with:
@@ -116,6 +119,6 @@ jobs:
         with:
           app-name: 'NexTechBackendChallenge'
           slot-name: 'Production'
-          package: ./publish
+          package: ./BackendChallenge/publish
 
 
