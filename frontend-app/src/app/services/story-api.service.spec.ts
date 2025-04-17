@@ -3,6 +3,7 @@ import { provideHttpClient, HttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { FindStoryResponse, StoryItem } from '../models/StoryItem';
+import { API_BASE_URL } from './api.tokens';
 
 describe('StoryApiService', () => {
   let service: StoryApiService;
@@ -13,7 +14,8 @@ describe('StoryApiService', () => {
       providers: [
         StoryApiService,
         provideHttpClient(),
-        provideHttpClientTesting()
+        provideHttpClientTesting(),
+        { provide: API_BASE_URL, useValue: 'http://localhost:5037/api' }
       ]
     });
 
