@@ -22,7 +22,12 @@ jobs:
       - name: Install dependencies
         working-directory: ./frontend-app  # Navigate to the frontend directory
         run: npm install
-
+        
+      - name: Build Angular app
+        working-directory: ./frontend-app
+        run: npm run build -- --configuration production
+          
+          
       - name: Run Angular tests
         working-directory: ./frontend-app  # Navigate to the frontend directory
         run: npm run test -- --watch=false --browsers=ChromeHeadless
