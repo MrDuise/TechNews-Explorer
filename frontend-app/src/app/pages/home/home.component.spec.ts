@@ -46,18 +46,18 @@ describe('HomeComponent', () => {
     component = fixture.componentInstance;
   });
 
-  it('should create', () => {
+  it('Should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call getNewStories on init', () => {
+  it('Should call getNewStories on init', () => {
     mockStoryApiService.getNewStories.and.returnValue(of(mockResponse));
     fixture.detectChanges(); // triggers ngOnInit
     expect(mockStoryApiService.getNewStories).toHaveBeenCalledWith(10, 1);
     expect(component.response).toEqual(mockResponse);
   });
 
-  it('should paginate correctly when searchedFlag is true', () => {
+  it('Should paginate correctly when searchedFlag is true', () => {
     component.searchedFlag = true;
     component.pageSize = 5;
     component.currentPage = 1;
@@ -68,7 +68,7 @@ describe('HomeComponent', () => {
     expect(component.response.stories[0].title).toBe('Story 5');
   });
 
-  it('should call performSearch and set search results', () => {
+  it('Should call performSearch and set search results', () => {
     mockStoryApiService.searchStories.and.returnValue(of(mockResponse));
     component.performSearch('test');
 
@@ -77,7 +77,7 @@ describe('HomeComponent', () => {
     expect(component.response.stories.length).toBe(component.pageSize);
   });
 
-  it('should reset state when clearSearch is called', () => {
+  it('Should reset state when clearSearch is called', () => {
     mockStoryApiService.getNewStories.and.returnValue(of(mockResponse));
     component.searchedFlag = true;
     component.allSearchedStories = mockStories;
@@ -89,7 +89,7 @@ describe('HomeComponent', () => {
     expect(mockStoryApiService.getNewStories).toHaveBeenCalled();
   });
 
-  it('should call getNewStories on page change when not searching', () => {
+  it('Should call getNewStories on page change when not searching', () => {
     mockStoryApiService.getNewStories.and.returnValue(of(mockResponse));
     component.searchedFlag = false;
     const event: PageEvent = { pageIndex: 1, pageSize: 5, length: 20 };
@@ -101,7 +101,7 @@ describe('HomeComponent', () => {
     expect(mockStoryApiService.getNewStories).toHaveBeenCalledWith(5, 2);
   });
 
-  it('should paginate search results on page change when searching', () => {
+  it('Should paginate search results on page change when searching', () => {
     component.searchedFlag = true;
     component.allSearchedStories = mockStories;
     const event: PageEvent = { pageIndex: 2, pageSize: 5, length: 20 };

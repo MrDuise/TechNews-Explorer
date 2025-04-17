@@ -15,19 +15,22 @@ export class HomeComponent {
 
   pageSize = 10; // Default page size
   currentPage: number = 0; // Start on page 1 (0-based index)
-  maxStories: number = 0;
+  maxStories: number = 0; //the total number of stories
   response!: FindStoryResponse;
-  storyId: number = this.currentPage * this.pageSize;
+  storyId: number = this.currentPage * this.pageSize; //this allows to have a story number next to each story, and for it to change as I paginate 
+
    // Search-related properties
    searchedFlag = false;
    allSearchedStories: StoryItem[] = [];
    paginatedSearchResults: StoryItem[] = [];
+   
   constructor(private storyApiService: StoryApiService) {}
 
   ngOnInit() {
     this.getNewStories();
   }
 
+  //handles the paginator page change events
   onPageChange(event: PageEvent): void {
     this.pageSize = event.pageSize;
     this.currentPage = event.pageIndex;
@@ -40,6 +43,7 @@ export class HomeComponent {
     }
   }
 
+  //this gets called by the searchbar component using an event with the query string passed in
   performSearch(query: string): void {
     this.storyApiService.searchStories(query).subscribe((data) => {
       this.searchedFlag = true;
@@ -50,18 +54,20 @@ export class HomeComponent {
     });
   }
 
+  //create a custom pagination for the search results specfically
   paginateSearchResults(): void {
     const start = this.currentPage * this.pageSize;
     const end = start + this.pageSize;
     this.paginatedSearchResults = this.allSearchedStories.slice(start, end);
 
-    // Map to the response shape if needed
+    //updates the response value
     this.response = {
       numberOfStories: this.maxStories,
       stories: this.paginatedSearchResults
     };
   }
 
+  //wipes out the search results, going back to the newest stories default
   clearSearch(): void {
     this.searchedFlag = false;
     this.allSearchedStories = [];

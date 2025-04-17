@@ -1,9 +1,9 @@
 .search-bar {
     display: flex;
-    justify-content: flex-end;   /* Aligns it to the right side */
-    padding: 20px 40px 0 0;       /* Top padding to move it down a bit, right padding to stop it from hugging the edge */
+    justify-content: flex-end;   
+    padding: 20px 40px 0 0;       
   }
   
   mat-form-field {
-    width: 300px;                /* Control the width of the search bar */
+    width: 300px;   
   }

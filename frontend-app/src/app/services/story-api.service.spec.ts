@@ -25,7 +25,7 @@ describe('StoryApiService', () => {
     httpMock.verify();
   });
 
-  it('should be created', () => {
+  it('Should be created', () => {
     expect(service).toBeTruthy();
   });
 
@@ -41,7 +41,7 @@ describe('StoryApiService', () => {
     type: "story"
   }));
 
-  it('should fetch new stories', () => {
+  it('Should fetch new stories', () => {
     const dummyResponse: FindStoryResponse = {
       stories: mockStories,
       numberOfStories: 20
@@ -56,7 +56,7 @@ describe('StoryApiService', () => {
     req.flush(dummyResponse);
   });
 
-  it('should search for stories', () => {
+  it('Should search for stories', () => {
     const dummyResponse: FindStoryResponse = {
       stories: [{
         id: 2,

@@ -13,12 +13,6 @@ class MockStoryApiService {
   }
 }
 
-@Component({
-  selector: 'app-home',
-  standalone: true,
-  template: ''
-})
-class MockHomeComponent {}
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -27,9 +21,8 @@ describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-
-        AppComponent,            // Since AppComponent is standalone
-        MockHomeComponent            // Also a standalone component
+        AppComponent,            
+        HomeComponent            
       ],
       providers: [
         provideHttpClient(),
@@ -37,7 +30,6 @@ describe('AppComponent', () => {
         { provide: StoryApiService, useClass: MockStoryApiService }
       ]
     }).compileComponents();
-
     fixture = TestBed.createComponent(AppComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
