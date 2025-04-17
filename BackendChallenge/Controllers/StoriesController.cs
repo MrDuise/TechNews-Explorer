@@ -34,9 +34,9 @@ namespace Backend_Challenge.Controllers
 
 
         [HttpGet("search")]
-        public async Task<IActionResult> SearchStories([FromQuery] string query)
+        public async Task<IActionResult> SearchStories([FromQuery] string queryString)
         {
-            var results = await storyService.SearchStoriesAsync(query);
+            var results = await storyService.SearchStories(queryString);
             return Ok(results);
         }
     }

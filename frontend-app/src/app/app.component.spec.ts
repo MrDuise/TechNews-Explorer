@@ -5,11 +5,10 @@ import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
 import { StoryApiService } from './services/story-api.service';
-import { Component } from '@angular/core';
 
 class MockStoryApiService {
   getNewStories () {
-    return of({ results: [] }); // Avoids null/undefined
+    return of({ results: [] }); 
   }
 }
 

@@ -71,13 +71,13 @@ namespace Backend_Challenge.UnitTests
             var service = new StoryService(logger, memoryCache, restClientMock.Object);
 
             // Act
-            var result = await service.GetStoryItems(2, 1);
+            var storyResponse = await service.GetStoryItems(2, 1);
 
             // Assert
-            Assert.Equal(2, result.stories.Count());
+            Assert.Equal(2, storyResponse.stories.Count());
 
-            Assert.Contains(result.stories, x => x.Id == storyItem1.Id && x.By == storyItem1.By && x.Title == storyItem1.Title);
-            Assert.Contains(result.stories, x => x.Id == storyItem2.Id && x.By == storyItem2.By && x.Title == storyItem2.Title);
+            Assert.Contains(storyResponse.stories, story => story.Id == storyItem1.Id && story.By == storyItem1.By && story.Title == storyItem1.Title);
+            Assert.Contains(storyResponse.stories, story => story.Id == storyItem2.Id && story.By == storyItem2.By && story.Title == storyItem2.Title);
             restClientMock.Verify(c => c.ExecuteAsync(It.IsAny<RestRequest>(), It.IsAny<CancellationToken>()), Times.Exactly(3));
 
         }
@@ -104,11 +104,11 @@ namespace Backend_Challenge.UnitTests
             var service = new StoryService(logger, cache, restClientMock.Object);
 
             // Act
-            var result = await service.GetStoryItems(2, 1);
+            var storyResponse = await service.GetStoryItems(2, 1);
 
             // Assert
-            Assert.Equal(2, result.stories.Count());
-            Assert.Equal("Prototaxites Don't Belong to Living Lineage – Distinct Branch of Multicellular", result.stories[0].Title);
+            Assert.Equal(2, storyResponse.stories.Count());
+            Assert.Equal("Prototaxites Don't Belong to Living Lineage – Distinct Branch of Multicellular", storyResponse.stories[0].Title);
             restClientMock.Verify(c => c.ExecuteAsync(It.IsAny<RestRequest>(), It.IsAny<CancellationToken>()), Times.Exactly(2));
         }
 
@@ -125,10 +125,10 @@ namespace Backend_Challenge.UnitTests
             var service = new StoryService(logger, memoryCache, restClientMock.Object);
 
             // Act
-            var result = await service.GetStoryItems(10, 1);
+            var storyResponse = await service.GetStoryItems(10, 1);
 
             // Assert
-            Assert.Empty(result.stories);
+            Assert.Empty(storyResponse.stories);
             restClientMock.Verify(c => c.ExecuteAsync(It.IsAny<RestRequest>(), It.IsAny<CancellationToken>()), Times.Once);
         }
 

@@ -2,6 +2,7 @@
 
 namespace Backend_Challenge.Models
 {
+    //The layout of this data model is pulled directy from the HackerNews API, it matchs their Item model
     public class StoryItem
     {
         [JsonPropertyName("by")]

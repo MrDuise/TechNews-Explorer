@@ -1,7 +1,7 @@
 <div class="search-bar">
     <mat-form-field appearance="outline">
       <mat-label>Search</mat-label>
-      <input matInput [(ngModel)]="searchText" (keyup.enter)="onSearch()" placeholder="Type to search..." />
+      <input matInput [(ngModel)]="inputText" (keyup.enter)="onSearch()" placeholder="Type to search..." />
       <button mat-icon-button matSuffix (click)="onSearch()" aria-label="Search">
         <mat-icon>search</mat-icon>
       </button>

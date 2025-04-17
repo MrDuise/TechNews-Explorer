@@ -10,7 +10,8 @@ namespace Backend_Challenge.IntegrationTests
 {
     public class StoryServiceIntegrationTests
     {
-
+        //these tests are disabled in the pipeline
+        //but can easily be run from vs
         [Fact]
         [Trait("Category", "Integration")]
         public async Task GetStoryItems_ReturnsItemsFromLiveApi()
@@ -19,13 +20,13 @@ namespace Backend_Challenge.IntegrationTests
             var logger = new LoggerFactory().CreateLogger<StoryService>();
             var restClient = new RestClient("https://hacker-news.firebaseio.com/");
 
-            var service = new StoryService(logger, cache, restClient);
+            var storyService = new StoryService(logger, cache, restClient);
 
-            var results = await service.GetStoryItems(5, 1);
+            var storyResponse = await storyService.GetStoryItems(5, 1);
 
-            Assert.NotEmpty(results.stories);
-            Assert.All(results.stories, item => Assert.False(string.IsNullOrEmpty(item.Title)));
-            Assert.Equal(5, results.stories.Count());
+            Assert.NotEmpty(storyResponse.stories);
+            Assert.All(storyResponse.stories, item => Assert.False(string.IsNullOrEmpty(item.Title)));
+            Assert.Equal(5, storyResponse.stories.Count());
         }
     }
 }

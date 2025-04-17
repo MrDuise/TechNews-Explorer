@@ -6,7 +6,7 @@ namespace Backend_Challenge.Services
     {
         //Returns a list of paginated story objects
         Task<FindStoryResponse> GetStoryItems(int amount, int page);
-        Task<FindStoryResponse> SearchStoriesAsync(string query);
+        Task<FindStoryResponse> SearchStories(string query);
 
     }
 }

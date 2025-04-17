@@ -13,17 +13,20 @@ import { SearchBarComponent } from '../../components/search-bar/search-bar.compo
 })
 export class HomeComponent {
 
+  //paginator properties
   pageSize = 10; // Default page size
-  currentPage: number = 0; // Start on page 1 (0-based index)
+  currentPage: number = 0; // Start on page 1. paginator is 0 based index, but all other instances of using this increase the page number by 1 for visual
   maxStories: number = 0; //the total number of stories
+
+  //story display properties
   response: FindStoryResponse = {
     stories: [],
     numberOfStories: 0
   };
   storyId: number = this.currentPage * this.pageSize; //this allows to have a story number next to each story, and for it to change as I paginate 
-
   isLoading : boolean = true;
-   // Search-related properties
+
+   //search-related properties
    searchedFlag = false;
    allSearchedStories: StoryItem[] = [];
    paginatedSearchResults: StoryItem[] = [];
@@ -41,6 +44,7 @@ export class HomeComponent {
     this.currentPage = event.pageIndex;
     this.storyId = this.currentPage * this.pageSize;
 
+    //check to not call the newstories api and send in the wrong data when doing a search
     if (this.searchedFlag) {
       this.paginateSearchResults();
     } else {
@@ -50,7 +54,7 @@ export class HomeComponent {
 
   //this gets called by the searchbar component using an event with the query string passed in
   performSearch(query: string): void {
-    this.isLoading = true;
+    this.isLoading = true;//reenables the spinner when a search is started
     this.storyApiService.searchStories(query).subscribe((data) => {
       this.searchedFlag = true;
       this.allSearchedStories = data.stories;
@@ -84,7 +88,7 @@ export class HomeComponent {
   }
 
   
-
+//calls the story service to get the newest stories
   getNewStories(){
     this.storyApiService.getNewStories(this.pageSize,this.currentPage+1).subscribe((data) => {
       this.response = data;

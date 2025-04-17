@@ -11,16 +11,16 @@ import {MatIconModule} from '@angular/material/icon';
   imports: [FormsModule, MatInputModule, MatIconModule, MatFormFieldModule],
 })
 export class SearchBarComponent {
-  searchText: string = '';
+  inputText: string = '';
 
   @Output() search = new EventEmitter<string>();
 
   onSearch() {
-    this.search.emit(this.searchText);
+    this.search.emit(this.inputText);
   }
 
   clearSearch() {
-    this.searchText = '';
-    this.search.emit(this.searchText);
+    this.inputText = '';
+    this.search.emit(this.inputText);
   }
 }
