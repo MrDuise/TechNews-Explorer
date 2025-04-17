@@ -31,5 +31,13 @@ namespace Backend_Challenge.Controllers
                 return StatusCode(500, new { message = "An error occurred while fetching stories." });
             }
         }
+
+
+        [HttpGet("search")]
+        public async Task<IActionResult> SearchStories([FromQuery] string query)
+        {
+            var results = await storyService.SearchStoriesAsync(query);
+            return Ok(results);
+        }
     }
 }

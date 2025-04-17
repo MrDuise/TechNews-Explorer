@@ -1,0 +1,15 @@
+<h1 class="title">Hacker News Newest Stories</h1>
+<app-search-bar (search)="performSearch($event)"></app-search-bar>
+@if(searchedFlag == true) {
+    <button class="clearSearch" (click)="clearSearch()">
+    Clear Search
+  </button>
+}
+<app-story-list [stories]="response.stories" [storyNumber]="storyId"> </app-story-list>
+<mat-paginator [length]=maxStories
+              [pageSize]= pageSize 
+              (page)="onPageChange($event)"
+              [pageIndex]="currentPage"
+              [pageSizeOptions]="[5, 10, 25, 100]"
+              aria-label="Select page">
+</mat-paginator>

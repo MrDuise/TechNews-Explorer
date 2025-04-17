@@ -7,25 +7,25 @@ on:
 
 jobs:
   # Job to run Angular tests
-  # angular-tests:
-  #   runs-on: ubuntu-latest
+  angular-tests:
+    runs-on: ubuntu-latest
 
-  #   steps:
-  #     - name: Checkout repository
-  #       uses: actions/checkout@v2
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-  #     - name: Set up Node.js
-  #       uses: actions/setup-node@v3
-  #       with:
-  #         node-version: '22.14'
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22.14'
 
-  #     - name: Install dependencies
-  #       working-directory: ./Frontend  # Navigate to the frontend directory
-  #       run: npm install
+      - name: Install dependencies
+        working-directory: ./frontend-app  # Navigate to the frontend directory
+        run: npm install
 
-  #     - name: Run Angular tests
-  #       working-directory: ./Frontend  # Navigate to the frontend directory
-  #       run: npm run test -- --watch=false --browsers=ChromeHeadless
+      - name: Run Angular tests
+        working-directory: ./frontend-app  # Navigate to the frontend directory
+        run: npm run test -- --watch=false --browsers=ChromeHeadless
 
   # Job to run C# tests
   dotnet-tests:

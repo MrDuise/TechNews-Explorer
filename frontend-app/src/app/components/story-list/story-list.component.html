@@ -1,0 +1,35 @@
+@if (loaded === false) {
+    <div class="spinner-container">
+     <mat-spinner></mat-spinner>
+    </div>
+
+}@else {
+    <div class="articles-container">
+        @for (story of stories; track $index){
+            <mat-card class="article-card" appearance="outlined">
+                <mat-card-header>
+                  <mat-card-title>{{ storyNumber + $index + 1 }}. {{ story.title }}</mat-card-title>
+                  <mat-card-subtitle>by {{ story.by }}</mat-card-subtitle>
+                </mat-card-header>
+            
+                <mat-card-content>
+                  <a 
+                    [href]="story.url" 
+                    target="_blank" 
+                    rel="noopener"
+                    [class.disabled-link]="!story.url"
+                    [attr.aria-disabled]="!story.url"
+                    [attr.tabindex]="story.url ? 0 : -1"
+                    
+                  >
+                    {{ story.url ? 'Read More' : 'No Link Available' }}
+                  </a>
+                </mat-card-content>
+              </mat-card>
+        }
+      </div>
+}
+
+
+
+  

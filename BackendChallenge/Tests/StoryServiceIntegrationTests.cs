@@ -23,9 +23,9 @@ namespace Backend_Challenge.IntegrationTests
 
             var results = await service.GetStoryItems(5, 1);
 
-            Assert.NotEmpty(results);
-            Assert.All(results, item => Assert.False(string.IsNullOrEmpty(item.Title)));
-            Assert.Equal(5, results.Count);
+            Assert.NotEmpty(results.stories);
+            Assert.All(results.stories, item => Assert.False(string.IsNullOrEmpty(item.Title)));
+            Assert.Equal(5, results.stories.Count());
         }
     }
 }

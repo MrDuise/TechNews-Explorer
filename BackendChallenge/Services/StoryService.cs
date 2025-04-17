@@ -20,7 +20,18 @@ namespace Backend_Challenge.Services
             this.restClient = restClient;
         }
 
-        public async Task<List<StoryItem>> GetStoryItems(int amountPerPage, int page)
+        public async Task<FindStoryResponse> SearchStoriesAsync(string query)
+        {
+                var allIds = await GetNewStoryIDs();
+                var allStories = await GetStoryItems(500, 1);
+                var storyResponse = new FindStoryResponse();
+                storyResponse.stories = allStories.stories
+                    .Where(s => !string.IsNullOrWhiteSpace(s.Title) && s.Title.Contains(query, StringComparison.OrdinalIgnoreCase)).ToList();
+            storyResponse.numberOfStories = storyResponse.stories.Count();
+            return storyResponse;
+        }
+
+        public async Task<FindStoryResponse> GetStoryItems(int amountPerPage, int page)
         {
             try
             {
@@ -42,17 +53,20 @@ namespace Backend_Challenge.Services
                 });
                 // use LINQ to turn the paginated id list into a list of Task<StoryItem>s
                 var results = await Task.WhenAll(tasks); // takes the list of async operations and returns when they are all done, every request runs in parallel, so only waiting for the slowest request to finish
-                return results.Where(r => r != null).ToList();
+                var storyResponse = new FindStoryResponse();
+                storyResponse.stories = [.. results.Where(r => r != null)];
+                storyResponse.numberOfStories = allIds.Count();
+                return storyResponse;
             }
             catch (HttpRequestException ex)
             {
                 logger.LogError(ex, "Network Error");
-                return new List<StoryItem>();
+                return new FindStoryResponse();
             }
             catch (JsonException ex)
             {
                 logger.LogError(ex, "Deserialization error");
-                return new List<StoryItem>();
+                return new FindStoryResponse();
             }
         }
 
