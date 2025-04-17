@@ -104,7 +104,7 @@ jobs:
           name: .net-app
        
       - name: List files in downloaded artifact
-        run: ls -R .net-app/
+        run: ls 
 
       - name: Login to Azure
         uses: azure/login@v2
