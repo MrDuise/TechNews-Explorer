@@ -87,7 +87,7 @@ jobs:
         output_location: "/dist/frontend-app/browser"    
         
   deploy-backend:
-    name: ?? Deploy Backend
+    name: Deploy Backend
     runs-on: windows-latest
     needs: dotnet-tests
     environment:
@@ -116,6 +116,6 @@ jobs:
         with:
           app-name: 'NexTechBackendChallenge'
           slot-name: 'Production'
-          package: ./BackendChallenge/publish
+          package: ./.net-app/publish
 
 
