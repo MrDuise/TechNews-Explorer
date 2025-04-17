@@ -38,10 +38,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up .NET SDK
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0' # Use the appropriate version of .NET for your project
 
@@ -60,6 +60,12 @@ jobs:
       - name: dotnet publish
         working-directory: ./BackendChallenge
         run: dotnet publish -c Release -o ./publish
+
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v4
+        with:
+         name: .net-app
+         path: ./BackendChallenge/publish
 
   deploy-frontend:
     needs: angular-tests
@@ -93,7 +99,7 @@ jobs:
 
     steps:
       - name: Download artifact from build job
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: .net-app
       
