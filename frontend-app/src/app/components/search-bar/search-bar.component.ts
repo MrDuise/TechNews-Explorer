@@ -7,7 +7,7 @@ import {MatIconModule} from '@angular/material/icon';
 @Component({
   selector: 'app-search-bar',
   templateUrl: './search-bar.component.html',
-  styleUrls: ['./search-bar.component.css'],
+  styleUrls: ['./search-bar.component.scss'],
   imports: [FormsModule, MatInputModule, MatIconModule, MatFormFieldModule],
 })
 export class SearchBarComponent {

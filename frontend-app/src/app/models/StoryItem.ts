@@ -9,4 +9,9 @@ export interface StoryItem {
     type: string;
     url: string;
   }
+
+  export interface FindStoryResponse {
+    stories: StoryItem[];
+    numberOfStories: number;
+  }
   

@@ -21,7 +21,7 @@ export class StoryListComponent {
 
   ngOnChanges(changes: SimpleChanges): void {
     // Check if the 'movies' input has changed and is not empty
-    if (changes['stories'] && this.stories.length > 0) {
+    if (changes['stories'] && this.stories?.length > 0) {
       this.loaded = true;
     }
   }
