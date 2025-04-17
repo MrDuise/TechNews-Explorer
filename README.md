@@ -136,5 +136,179 @@ If you encounter any issues:
 </details>
 <details>
 <summary>Hacker News API - Frontend Challenge</summary>
-This is how you dropdown.
+================================
+
+Overview
+--------
+
+This is an Angular-based frontend application that displays the newest stories from Hacker News. The application connects to a backend API to fetch stories, provides pagination functionality, and includes search capabilities.
+
+Features
+--------
+
+-   Browse newest Hacker News stories with a clean, card-based UI
+-   Paginate through stories with a configurable page size
+-   Search functionality to filter stories by keyword
+-   Responsive design using Angular Material components
+-   Comprehensive unit tests
+
+Prerequisites
+-------------
+
+-   [Node.js](https://nodejs.org/) (v16 or later)
+-   [Angular CLI](https://angular.io/cli) (`npm install -g @angular/cli`)
+-   Backend API running on `http://localhost:5037` (or configured URL)
+
+Project Structure
+-----------------
+
+```
+frontend-app/
+??? src/
+?   ??? app/
+?   ?   ??? components/
+?   ?   ?   ??? search-bar/     # Search input component
+?   ?   ?   ??? story-list/     # Story display component
+?   ?   ??? models/             # TypeScript interfaces
+?   ?   ??? pages/
+?   ?   ?   ??? home/           # Main page component
+?   ?   ??? services/
+?   ?       ??? story-api/      # API service for backend communication
+?   ??? assets/                 # Static resources
+?   ??? environments/           # Environment configuration
+??? package.json                # Dependencies and scripts
+
+```
+
+Getting Started
+---------------
+
+### Installation
+
+```
+# Clone the repository (if you haven't already)
+git clone <repository-url>
+cd <repository-name>/frontend-app
+
+# Install dependencies
+npm install
+
+```
+
+### Running the Application
+
+```
+# Start the development server
+ng serve
+
+# Alternatively, to specify a port
+ng serve --port 4200
+
+```
+
+The application will be available at `http://localhost:4200` by default.
+
+### Configuration
+
+The application is configured to connect to a backend API at `http://localhost:5037`. If your backend is running at a different URL, you'll need to update the `baseUrl` in `src/app/services/story-api.service.ts`:
+
+```
+private baseUrl = 'http://your-backend-url/api';
+
+```
+
+Usage
+-----
+
+-   **Browse Stories**: The main page displays the newest stories from Hacker News
+-   **Pagination**: Use the paginator at the bottom to navigate between pages
+-   **Change Page Size**: Select different page sizes (5, 10, 25, 100) from the paginator
+-   **Search**: Enter keywords in the search bar and press Enter or click the search icon
+-   **Clear Search**: After searching, a "Clear Search" button appears to return to all stories
+
+Components
+----------
+
+### App Component
+
+The root component that serves as the entry point for the application.
+
+### Home Component
+
+The main page component that orchestrates:
+
+-   Story fetching
+-   Pagination
+-   Search functionality
+-   Displaying results
+
+### Search Bar Component
+
+A reusable component that:
+
+-   Provides a Material Design search input
+-   Emits search events to the parent component
+
+### Story List Component
+
+Displays the stories as cards with:
+
+-   Title and author information
+-   Link to the original story
+-   Loading spinner when fetching data
+
+Services
+--------
+
+### Story API Service
+
+Handles communication with the backend API:
+
+-   `getNewStories(amount, page)`: Fetches paginated stories
+-   `searchStories(query)`: Searches for stories matching the query
+
+Testing
+-------
+
+The application includes comprehensive unit tests for all components and services.
+
+```
+# Run unit tests
+ng test
+
+# Run tests with code coverage report
+ng test --code-coverage
+
+```
+
+### Key Test Cases
+
+-   Component creation and initialization
+-   API service calls and responses
+-   Pagination functionality
+-   Search behavior
+-   UI state management
+
+Building for Production
+-----------------------
+
+```
+# Build the application for production
+ng build --configuration production
+
+```
+
+The build artifacts will be stored in the `dist/` directory.
+
+Troubleshooting
+---------------
+
+### Common Issues
+
+1.  **API Connection Errors**: Ensure the backend API is running and accessible at the configured URL.
+
+2.  **CORS Issues**: If you see CORS errors in the console, ensure the backend API has CORS configured to allow requests from your frontend origin.
+
+3.  **Material Component Errors**: Make sure all Angular Material dependencies are correctly installed and imported.
+
 </details>
