@@ -1,15 +1,16 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FindStoryResponse, StoryItem } from '../models/StoryItem';
+import { API_BASE_URL } from './api.tokens';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StoryApiService {
-  private baseUrl = 'http://localhost:5037/api';
+  
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,  @Inject(API_BASE_URL) private baseUrl: string) {}
 
   getNewStories(amount: number, page: number): Observable<FindStoryResponse> {
     return this.http.get<FindStoryResponse>(`${this.baseUrl}/stories?amount=${amount}&page=${page}`);

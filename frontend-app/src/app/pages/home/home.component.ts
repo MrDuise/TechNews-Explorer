@@ -16,9 +16,13 @@ export class HomeComponent {
   pageSize = 10; // Default page size
   currentPage: number = 0; // Start on page 1 (0-based index)
   maxStories: number = 0; //the total number of stories
-  response!: FindStoryResponse;
+  response: FindStoryResponse = {
+    stories: [],
+    numberOfStories: 0
+  };
   storyId: number = this.currentPage * this.pageSize; //this allows to have a story number next to each story, and for it to change as I paginate 
 
+  isLoading : boolean = true;
    // Search-related properties
    searchedFlag = false;
    allSearchedStories: StoryItem[] = [];
@@ -27,6 +31,7 @@ export class HomeComponent {
   constructor(private storyApiService: StoryApiService) {}
 
   ngOnInit() {
+    console.log("Loading state before API:", this.isLoading);
     this.getNewStories();
   }
 
@@ -45,12 +50,14 @@ export class HomeComponent {
 
   //this gets called by the searchbar component using an event with the query string passed in
   performSearch(query: string): void {
+    this.isLoading = true;
     this.storyApiService.searchStories(query).subscribe((data) => {
       this.searchedFlag = true;
       this.allSearchedStories = data.stories;
       this.maxStories = data.numberOfStories;
       this.currentPage = 0;
       this.paginateSearchResults();
+      this.isLoading = false;
     });
   }
 
@@ -82,6 +89,7 @@ export class HomeComponent {
     this.storyApiService.getNewStories(this.pageSize,this.currentPage+1).subscribe((data) => {
       this.response = data;
       this.maxStories = this.response.numberOfStories;
+      this.isLoading = false;
     });
   }
 }

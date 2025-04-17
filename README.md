@@ -1,79 +1,9 @@
-# Nextech Coding Challenge
+﻿# Nextech Coding Challenge
  What Is This Project?
 ---------------------
 
 This is a full-stack application for a coding challenge for Nextech to browse the newest stories from Hacker News. It consists of two parts:
 
-1.  **Backend API (.NET 8.0)**: Fetches, caches, and serves data from the official Hacker News API
-2.  **Frontend Application (Angular)**: Displays the stories in a clean, paginated interface with search functionality
-
-Key Features
-------------
-
--   Browse newest Hacker News stories with pagination
--   Search functionality to filter stories
--   Responsive card-based UI using Angular Material
--   Efficient backend caching to reduce API calls to Hacker News
--   Docker support for easy deployment
-
-Technical Implementation Decisions
-----------------------------------
-
-### Backend Implementation
-
--   **In-Memory Caching**: Used .NET's built-in memory cache instead of more complex solutions like Redis. This approach provides sufficient performance for the application's needs while keeping the architecture simple and deployment straightforward.
--   **RestSharp vs HttpClient**: Implemented API calls using RestSharp instead of the built-in HttpClient. While HttpClient is more lightweight, RestSharp provides a more testable interface, making it easier to write unit tests with mocking capabilities.
--   **Server-Side Pagination**: Pagination is handled on the backend rather than fetching all story IDs at once. This approach significantly reduces the payload size and number of API calls needed from the client, improving performance and user experience.
--   **Error Handling**: Implemented comprehensive exception handling to gracefully manage API failures and return appropriate status codes.
-
-### Frontend Implementation
-
--   **Component-Based Architecture**: Separated the UI into reusable components (search bar, story list) for better maintainability.
--   **Angular Material**: Used Material Design components to create a clean, professional user interface with minimal custom CSS.
--   **Client-Side Search Pagination**: Once search results are fetched, pagination is handled client-side to reduce unnecessary server calls.
--   **Responsive Design**: The UI adapts to different screen sizes for a consistent experience across devices.
-
-### Infrastructure
-
--   I set up CI/CD pipelines for automated testing and deployment, running in main.yml
-
-Future Improvements
--------------------
-
-### Backend Enhancements
-
--   Implement a more sophisticated caching strategy with Redis for distributed caching
--   Add endpoints for fetching comments and user profiles
--   Implement API rate limiting to prevent abuse
--   Optimize search functionality with a dedicated search engine (e.g., Elasticsearch)
-
-### Frontend Enhancements
-
--   Expand unit testing to cover error paths and edge cases
--   Add UI/integration testing with Cypress or Playwright
--   Clean up the UI, it looks ok, but could be better, its dull
-- Make the UI mobile friendly
-
-
-
-
-Technical Debt and Known Limitations
-------------------------------------
-
--   Frontend unit tests currently focus on happy paths only and need expansion
--   Limited error handling for network issues in the frontend
--   No comprehensive logging system implemented
--   Lacks sophisticated monitoring for production use
--   Search functionality is basic and could be improved with more advanced filtering options
-
-Conclusion
-----------
-
-- Time spent coding: 6 hours
-- Time spent fixing bugs and configs: 7 hours
-
----
-# Detailed overviews of each Part
 <details>
 <summary>Hacker News API - Backend Challenge</summary>
 ===================================
@@ -88,7 +18,6 @@ Features
 
 -   Fetch the newest stories from Hacker News with pagination support
 -   Memory caching of story IDs to reduce API calls
--   Docker support for containerized deployment
 -   Swagger UI for API documentation and testing
 -   Comprehensive unit tests
 
@@ -96,7 +25,6 @@ Prerequisites
 -------------
 
 -   [.NET 8.0 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
--   [Docker](https://www.docker.com/products/docker-desktop/) (optional, for containerized deployment)
 -   Visual Studio 2022 or Visual Studio Code (optional, for development)
 
 Getting Started
@@ -105,8 +33,8 @@ Getting Started
 ### Clone the Repository
 
 ```
-git clone https://your-repository-url/Backend-Challenge.git
-cd Backend-Challenge
+git clone https://github.com/MrDuise/Nextech-Coding-Challenge
+cd BackendChallenge
 
 ```
 
@@ -116,7 +44,7 @@ cd Backend-Challenge
 
 ```
 # Navigate to the project directory
-cd "Backend Challenge"
+cd "BackendChallenge"
 
 # Restore dependencies
 dotnet restore
@@ -155,12 +83,18 @@ Fetches a paginated list of newest stories from Hacker News.
 -   `amount` (int): Number of stories per page
 -   `page` (int): Page number (starting from 1)
 
+**Returns**
+
+- 
+
 **Example:**
 
 ```
 GET /api/Stories?amount=10&page=1
 
 ```
+
+
 
 Testing
 -------
@@ -238,19 +172,19 @@ Project Structure
 
 ```
 frontend-app/
-??? src/
-?   ??? app/
-?   ?   ??? components/
-?   ?   ?   ??? search-bar/     # Search input component
-?   ?   ?   ??? story-list/     # Story display component
-?   ?   ??? models/             # TypeScript interfaces
-?   ?   ??? pages/
-?   ?   ?   ??? home/           # Main page component
-?   ?   ??? services/
-?   ?       ??? story-api/      # API service for backend communication
-?   ??? assets/                 # Static resources
-?   ??? environments/           # Environment configuration
-??? package.json                # Dependencies and scripts
+├── src/
+│   ├── app/
+│   │   ├── components/
+│   │   │   ├── search-bar/
+│   │   │   └── story-list/
+│   │   ├── models/
+│   │   ├── pages/
+│   │   │   └── home/
+│   │   └── services/
+│   │       └── story-api/
+│   ├── assets/
+│   └── environments/
+├── package.json
 
 ```
 
@@ -261,8 +195,8 @@ Getting Started
 
 ```
 # Clone the repository (if you haven't already)
-git clone <repository-url>
-cd <repository-name>/frontend-app
+git clone https://github.com/MrDuise/Nextech-Coding-Challenge
+cd Nextech-Coding-Challenge/frontend-app
 
 # Install dependencies
 npm install
@@ -284,12 +218,19 @@ The application will be available at `http://localhost:4200` by default.
 
 ### Configuration
 
-The application is configured to connect to a backend API at `http://localhost:5037`. If your backend is running at a different URL, you'll need to update the `baseUrl` in `src/app/services/story-api.service.ts`:
+### Connecting to a Local Backend for Development
 
-```
-private baseUrl = 'http://your-backend-url/api';
+By default, the application is configured to use the Azure-hosted backend:
 
-```
+
+`{ provide: API_BASE_URL, useValue: 'https://nextechbackendchallenge-gebgfjh6arh6a5g3.westus-01.azurewebsites.net/api' }`
+
+For local development, update the `API_BASE_URL` in `src/app/app.config.ts` to point to your local backend:
+
+
+`{ provide: API_BASE_URL, useValue: 'http://localhost:5037/api' }`
+
+> **Note:** If your local backend is running on a different port or URL, be sure to update the `API_BASE_URL` accordingly.
 
 Usage
 -----
@@ -386,3 +327,81 @@ Troubleshooting
 3.  **Material Component Errors**: Make sure all Angular Material dependencies are correctly installed and imported.
 
 </details>
+
+Key Features
+------------
+
+-   Browse newest Hacker News stories with pagination
+-   Search functionality to filter stories
+-   Responsive card-based UI using Angular Material
+-   Efficient backend caching to reduce API calls to Hacker News
+-   Hosted on Azure [Click Here](https://white-bush-0088b851e.6.azurestaticapps.net/)
+
+Technical Implementation Decisions
+
+Component Flowchart
+![](./docs/component-diagram.png)
+---
+
+Class Diagram
+![](./docs/class%20diagram.png)
+---
+### Development Process
+I drew the first image on a whiteboard first, just to get my idea on paper of how to structure this app. 
+Once I had that, I converted it to a slighly less detailed class diagram then the one included. I wasn't given a firm time limit, so I figured detail mattered.
+After I created these to guide my development, I started with the backend. I almost always start there, as its what I like better. Due to such a detailed plan, development went pretty smoothly. I 
+did have a few issues making the list spinner load correctly, and had some issues with the search component and passing the values in. 
+Orginally I wanted to have a more complex way of managing those values instead of passing from parent to child, using an event driven system, but I decied that just passing the values was simpliest. 
+The hardest part of all these was getting the tests working, which is why I only have happy path, and getting the azure pipeline to work.
+### Backend Implementation
+
+-   **In-Memory Caching**: Used .NET's built-in memory cache instead of more complex solutions like Redis. This approach provides sufficient performance for the application's needs while keeping the architecture simple and deployment straightforward.
+-   **RestSharp vs HttpClient**: Implemented API calls using RestSharp instead of the built-in HttpClient. While HttpClient is more lightweight, RestSharp provides a more testable interface, making it easier to write unit tests with mocking capabilities.
+-   **Server-Side Pagination**: Pagination is handled on the backend rather than fetching all story IDs at once. This approach significantly reduces the payload size and number of API calls needed from the client, improving performance and user experience.
+-   **Error Handling**: Implemented comprehensive exception handling to gracefully manage API failures and return appropriate status codes.
+
+### Frontend Implementation
+
+-   **Component-Based Architecture**: Separated the UI into reusable components (search bar, story list) for better maintainability.
+-   **Angular Material**: Used Material Design components to create a clean, professional user interface with minimal custom CSS.
+-   **Client-Side Search Pagination**: Once search results are fetched, pagination is handled client-side to reduce unnecessary server calls.
+
+
+### Infrastructure
+
+-   I set up CI/CD pipelines for automated testing and deployment, running in main.yml
+- There are 4 jobs, tests run first for front-end and backend, then the deploy stages once tests pass
+
+Future Improvements if I had more time
+-------------------
+
+### Backend Enhancements
+-   Add endpoints for fetching comments and user profiles
+  - Expanded and clearer logging system
+-   Implement API rate limiting to prevent abuse, expecaly with it hosted
+-   Optimize search functionality with a dedicated search engine (e.g., Elasticsearch)
+
+### Frontend Enhancements if I had more time
+
+-   Expand unit testing to cover error paths and edge cases
+-   Add UI/integration testing with Cypress or Playwright
+-   Clean up the UI, it looks ok, but could be better, its dull
+  - Make the UI mobile friendly
+
+
+Technical Debt and Known Limitations
+------------------------------------
+
+-   Frontend unit tests currently focus on happy paths only and need expansion
+-   Limited error handling for network issues in the frontend
+-   No comprehensive logging system implemented
+-   Lacks sophisticated monitoring for production use
+-   Search functionality is basic and could be improved with more advanced filtering options
+  - backend api is slow due to basic teir of Azure
+
+Conclusion
+----------
+
+- Time spent coding: 6 hours
+- Time spent fixing bugs and configs: 7 hours
+
