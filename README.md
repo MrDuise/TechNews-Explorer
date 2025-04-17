@@ -1,5 +1,79 @@
 # Nextech Coding Challenge
- 
+ What Is This Project?
+---------------------
+
+This is a full-stack application for a coding challenge for Nextech to browse the newest stories from Hacker News. It consists of two parts:
+
+1.  **Backend API (.NET 8.0)**: Fetches, caches, and serves data from the official Hacker News API
+2.  **Frontend Application (Angular)**: Displays the stories in a clean, paginated interface with search functionality
+
+Key Features
+------------
+
+-   Browse newest Hacker News stories with pagination
+-   Search functionality to filter stories
+-   Responsive card-based UI using Angular Material
+-   Efficient backend caching to reduce API calls to Hacker News
+-   Docker support for easy deployment
+
+Technical Implementation Decisions
+----------------------------------
+
+### Backend Implementation
+
+-   **In-Memory Caching**: Used .NET's built-in memory cache instead of more complex solutions like Redis. This approach provides sufficient performance for the application's needs while keeping the architecture simple and deployment straightforward.
+-   **RestSharp vs HttpClient**: Implemented API calls using RestSharp instead of the built-in HttpClient. While HttpClient is more lightweight, RestSharp provides a more testable interface, making it easier to write unit tests with mocking capabilities.
+-   **Server-Side Pagination**: Pagination is handled on the backend rather than fetching all story IDs at once. This approach significantly reduces the payload size and number of API calls needed from the client, improving performance and user experience.
+-   **Error Handling**: Implemented comprehensive exception handling to gracefully manage API failures and return appropriate status codes.
+
+### Frontend Implementation
+
+-   **Component-Based Architecture**: Separated the UI into reusable components (search bar, story list) for better maintainability.
+-   **Angular Material**: Used Material Design components to create a clean, professional user interface with minimal custom CSS.
+-   **Client-Side Search Pagination**: Once search results are fetched, pagination is handled client-side to reduce unnecessary server calls.
+-   **Responsive Design**: The UI adapts to different screen sizes for a consistent experience across devices.
+
+### Infrastructure
+
+-   I set up CI/CD pipelines for automated testing and deployment, running in main.yml
+
+Future Improvements
+-------------------
+
+### Backend Enhancements
+
+-   Implement a more sophisticated caching strategy with Redis for distributed caching
+-   Add endpoints for fetching comments and user profiles
+-   Implement API rate limiting to prevent abuse
+-   Optimize search functionality with a dedicated search engine (e.g., Elasticsearch)
+
+### Frontend Enhancements
+
+-   Expand unit testing to cover error paths and edge cases
+-   Add UI/integration testing with Cypress or Playwright
+-   Clean up the UI, it looks ok, but could be better, its dull
+- Make the UI mobile friendly
+
+
+
+
+Technical Debt and Known Limitations
+------------------------------------
+
+-   Frontend unit tests currently focus on happy paths only and need expansion
+-   Limited error handling for network issues in the frontend
+-   No comprehensive logging system implemented
+-   Lacks sophisticated monitoring for production use
+-   Search functionality is basic and could be improved with more advanced filtering options
+
+Conclusion
+----------
+
+- Time spent coding: 6 hours
+- Time spent fixing bugs and configs: 7 hours
+
+---
+# Detailed overviews of each Part
 <details>
 <summary>Hacker News API - Backend Challenge</summary>
 ===================================
