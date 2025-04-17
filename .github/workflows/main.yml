@@ -119,6 +119,6 @@ jobs:
         with:
           app-name: 'NexTechBackendChallenge'
           slot-name: 'Production'
-          package: ./BackendChallenge/publish
+          package: .
 
 
