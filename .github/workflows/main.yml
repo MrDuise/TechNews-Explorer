@@ -57,7 +57,11 @@ jobs:
         working-directory: ./BackendChallenge
         run: dotnet test --configuration Release --no-build --verbosity normal --filter "Category!=Integration"
 
-  deploy:
+      - name: dotnet publish
+        working-directory: ./BackendChallenge
+        run: dotnet publish -c Release -o ./publish
+
+  deploy-frontend:
     needs: angular-tests
     runs-on: ubuntu-latest
     steps:
@@ -74,5 +78,38 @@ jobs:
         action: "upload"
         app_location: "./frontend-app"
         api_location: ""
-        output_location: "/dist/frontend-app/browser"        
+        output_location: "/dist/frontend-app/browser"    
+        
+  deploy-backend:
+    name: ?? Deploy Backend
+    runs-on: windows-latest
+    needs: dotnet-tests
+    environment:
+      name: 'Production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+    permissions:
+      id-token: write #This is required for requesting the JWT
+      contents: read #This is required for actions/checkout
+
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v2
+        with:
+          name: .net-app
+      
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_B1F98915393E45759F7295556E25F01B }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_DC25BC6C5D6145FE82B0B31EFC595C7D }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_F867A6F77E374CE190B10AEA7A67BD3E }}
+
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: 'NexTechBackendChallenge'
+          slot-name: 'Production'
+          package: ./publish
+
 
