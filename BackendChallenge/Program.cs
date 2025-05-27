@@ -1,3 +1,4 @@
+using Backend_Challenge.Middleware;
 using Backend_Challenge.Services;
 using RestSharp;
 
@@ -33,6 +34,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+app.UseMiddleware<ExceptionHandling>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

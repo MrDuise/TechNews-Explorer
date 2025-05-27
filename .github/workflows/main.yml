@@ -69,6 +69,7 @@ jobs:
 
   deploy-frontend:
     needs: angular-tests
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
 
@@ -90,6 +91,7 @@ jobs:
     name: Deploy Backend
     runs-on: windows-latest
     needs: dotnet-tests
+    if: github.ref == 'refs/heads/main'
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
