@@ -20,16 +20,8 @@ namespace Backend_Challenge.Controllers
         [HttpGet]
         public async Task<IActionResult> GetStories(int amount, int page)
         {
-            try
-            {
-                var equipment = await storyService.GetStoryItems(amount, page);
-                return Ok(equipment);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, "Error fetching stories");
-                return StatusCode(500, new { message = "An error occurred while fetching stories." });
-            }
+            var equipment = await storyService.GetStoryItems(amount, page);
+            return Ok(equipment);
         }
 
 
