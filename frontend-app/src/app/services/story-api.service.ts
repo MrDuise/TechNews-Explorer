@@ -25,7 +25,7 @@ export class StoryApiService {
   //call the search endpoint
   //encodeURIComponent is used because I was having issues when doing a search with spaces in it
   searchStories(query: string): Observable<FindStoryResponse> {
-  return this.http.get<FindStoryResponse>(`${this.baseUrl}/stories/search?query=${encodeURIComponent(query)}`)
+  return this.http.get<FindStoryResponse>(`${this.baseUrl}/stories/search?queryString=${encodeURIComponent(query)}`)
     .pipe(
       catchError(err => {
         console.error('API search error:', err);
