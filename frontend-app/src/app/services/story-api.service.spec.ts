@@ -79,7 +79,7 @@ describe('StoryApiService', () => {
       expect(response).toEqual(dummyResponse);
     });
 
-    const req = httpMock.expectOne(`http://localhost:5037/api/stories/search?query=${encodeURIComponent(query)}`);
+    const req = httpMock.expectOne(`http://localhost:5037/api/stories/search?queryString=${encodeURIComponent(query)}`);
     expect(req.request.method).toBe('GET');
     req.flush(dummyResponse);
   });
