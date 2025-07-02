@@ -1,4 +1,4 @@
-﻿# Nextech Coding Challenge
+﻿# TechNews-Explorer
  What Is This Project?
 ---------------------
 
